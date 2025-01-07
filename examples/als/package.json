@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@nextwrappers/async-local-storage": "1.0.0",
+    "@nextwrappers/async-local-storage": "workspace:^",
     "@types/node": "20.2.5",
     "@types/react": "18.2.8",
     "@types/react-dom": "18.2.4",
