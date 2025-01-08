@@ -1,5 +1,9 @@
 import { NextApiRequest, NextApiResponse, NextApiHandler } from "next";
-import { AnyApiHandler, AnyApiWrapper, InferApiWrapperHandler } from "./route.js";
+import {
+  AnyApiHandler,
+  AnyApiWrapper,
+  InferApiWrapperHandler,
+} from "./route.js";
 
 // Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
 /**

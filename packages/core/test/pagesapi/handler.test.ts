@@ -7,27 +7,31 @@ const h = createApiHandler({
   wrappers: {
     GET: wrapper((next, req: NextApiRequest & { isGetWrapped: true }, res) => {
       req.isGetWrapped = true;
-      next(req, res);
+      next();
     }),
 
-    POST: wrapper((next, req: NextApiRequest & { isPostWrapped: true }, res) => {
+    POST: wrapper((next, req: NextApiRequest & { isPostWrapped: true }) => {
       req.isPostWrapped = true;
-      next(req, res);
+      next();
     }),
 
-    PATCH: wrapper((next, req: NextApiRequest & { isPatchWrapped: true }, res) => {
-      req.isPatchWrapped = true;
-      next(req, res);
-    }),
+    PATCH: wrapper(
+      (next, req: NextApiRequest & { isPatchWrapped: true }, res) => {
+        req.isPatchWrapped = true;
+        next();
+      }
+    ),
 
     PUT: wrapper((next, req: NextApiRequest & { isPutWrapped: true }, res) => {
       req.isPutWrapped = true;
-      next(req, res);
+      next();
     }),
-    DELETE: wrapper((next, req: NextApiRequest & { isDeleteWrapped: true }, res) => {
-      req.isDeleteWrapped = true;
-      next(req, res);
-    }),
+    DELETE: wrapper(
+      (next, req: NextApiRequest & { isDeleteWrapped: true }, res) => {
+        req.isDeleteWrapped = true;
+        next();
+      }
+    ),
   },
 });
 

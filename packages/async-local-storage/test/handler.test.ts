@@ -18,26 +18,13 @@ test("invokes handler with async local storage", async (t) => {
     res.status(200).json({ message: "OK" });
   });
 
-  const mockRes = {
-    status: function(code: number) {
-      this.statusCode = code;
-      return this;
-    },
-    json: function(data: any) {
-      this.body = data;
-      return this;
-    },
-    statusCode: 0,
-    body: null
-  };
-
-  const { req } = createMocks<NextApiRequest, NextApiResponse>({
+  const { req, res } = createMocks<NextApiRequest, NextApiResponse>({
     method: "GET",
   });
 
-  await handler(req, mockRes as any);
+  await handler(req, res as any);
 
   t.is(callCount, 1);
-  t.is(mockRes.statusCode, 200);
-  t.deepEqual(mockRes.body, { message: "OK" });
+  t.is(res.statusCode, 200);
+  t.deepEqual(res._getJSONData(), { message: "OK" });
 });

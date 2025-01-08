@@ -10,11 +10,11 @@ test("wrapperM - runs handler", async (t) => {
   });
 
   const httpMock = createMocks({
-    method: "GET"
+    method: "GET",
   });
 
   const httpMockB = createMocks({
-    method: "GET"
+    method: "GET",
   });
 
   const handler = wrapped((req) => {
@@ -36,7 +36,7 @@ test("wrapperM - attaches properties to request", async (t) => {
   });
 
   const httpMock = createMocks({
-    method: "GET"
+    method: "GET",
   });
 
   const handler = wrapped((req) => {
@@ -64,7 +64,7 @@ test("mergeM - runs in correct order", async (t) => {
   });
 
   const httpMock = createMocks({
-    method: "GET"
+    method: "GET",
   });
 
   const wrapped = mergeM(wrappedA, wrappedB);
@@ -103,8 +103,8 @@ test("stackM - runs in correct order", async (t) => {
   const httpMock = createMocks({
     method: "GET",
     query: {
-      foo: "bar"
-    }
+      foo: "bar",
+    },
   });
 
   const wrapped = stackM(wrappedA).with(wrappedB).with(wrappedC);
@@ -141,7 +141,7 @@ test("chainM - runs in correct order", async (t) => {
   });
 
   const httpMock = createMocks({
-    method: "GET"
+    method: "GET",
   });
 
   const wrapped = chainM(wrappedA).with(wrappedB).with(wrappedC);

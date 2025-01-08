@@ -6,8 +6,8 @@ import { NextApiRequest } from "next";
 test("wrapper - runs handler", async (t) => {
   let handlerCallCount = 0;
 
-  const wrapped = wrapper(async (next, ...args) => {
-    await next(...args);
+  const wrapped = wrapper(async (next) => {
+    await next();
   });
 
   const handler = wrapped((_req, res) => {
