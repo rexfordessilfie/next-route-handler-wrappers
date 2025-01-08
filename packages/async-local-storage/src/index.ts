@@ -1,6 +1,6 @@
 import { wrapper } from "@nextwrappers/core";
 import { AsyncLocalStorage } from "node:async_hooks";
-import { runWithAsyncLocalStorage } from "./shared.js";
+import { runWithAsyncLocalStorage } from "./shared";
 
 /**
  * Creates an async local storage wrapper for a route handler

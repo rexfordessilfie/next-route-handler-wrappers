@@ -6,3 +6,4 @@ scratch.ts
 examples/demo*
 yarn-error.log
 .tsimp
+.turbo
