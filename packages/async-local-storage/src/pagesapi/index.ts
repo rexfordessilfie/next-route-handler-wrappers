@@ -1,7 +1,7 @@
-import { wrapper } from "../../../core/src/pagesapi";
+import { wrapper } from "@nextwrappers/core/pagesapi";
 import { AsyncLocalStorage } from "node:async_hooks";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { runWithAsyncLocalStorage } from "../shared";
+import { runWithAsyncLocalStorage } from "../shared.js";
 
 /**
  * Creates an async local storage wrapper for a route handler

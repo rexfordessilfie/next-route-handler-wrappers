@@ -1,32 +1,32 @@
 import { createMocks } from "node-mocks-http";
-import { createApiHandler, wrapper } from "../../src/pagesapi";
+import { createApiHandler, wrapper } from "../../src/pagesapi/index.js";
 import test from "ava";
 import { NextApiRequest } from "next";
 
 const h = createApiHandler({
   wrappers: {
-    GET: wrapper((next, req: NextApiRequest & { isGetWrapped: true }) => {
+    GET: wrapper((next, req: NextApiRequest & { isGetWrapped: true }, res) => {
       req.isGetWrapped = true;
-      next();
+      next(req, res);
     }),
 
-    POST: wrapper((next, req: NextApiRequest & { isPostWrapped: true }) => {
+    POST: wrapper((next, req: NextApiRequest & { isPostWrapped: true }, res) => {
       req.isPostWrapped = true;
-      next();
+      next(req, res);
     }),
 
-    PATCH: wrapper((next, req: NextApiRequest & { isPatchWrapped: true }) => {
+    PATCH: wrapper((next, req: NextApiRequest & { isPatchWrapped: true }, res) => {
       req.isPatchWrapped = true;
-      next();
+      next(req, res);
     }),
 
-    PUT: wrapper((next, req: NextApiRequest & { isPutWrapped: true }) => {
+    PUT: wrapper((next, req: NextApiRequest & { isPutWrapped: true }, res) => {
       req.isPutWrapped = true;
-      next();
+      next(req, res);
     }),
-    DELETE: wrapper((next, req: NextApiRequest & { isDeleteWrapped: true }) => {
+    DELETE: wrapper((next, req: NextApiRequest & { isDeleteWrapped: true }, res) => {
       req.isDeleteWrapped = true;
-      next();
+      next(req, res);
     }),
   },
 });

@@ -1,6 +1,6 @@
-import { DefaultExt, wrapper } from "../../core";
+import { wrapper } from "@nextwrappers/core";
 import { AsyncLocalStorage } from "node:async_hooks";
-import { runWithAsyncLocalStorage } from "./shared";
+import { runWithAsyncLocalStorage } from "./shared.js";
 
 /**
  * Creates an async local storage wrapper for a route handler
@@ -25,7 +25,7 @@ export function asyncLocalStorage<Store>(
 
 export type AsyncLocalStorageWrapperOptions<Store> = {
   storage?: AsyncLocalStorage<Store>;
-  initialize?: <Req extends Request, Ext extends DefaultExt>(
+  initialize?: <Req = unknown, Ext = unknown>(
     req: Req,
     ext?: Ext
   ) => Store;

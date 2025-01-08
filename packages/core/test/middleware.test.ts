@@ -1,5 +1,5 @@
 import test from "ava";
-import { chainM, mergeM, stackM, wrapperM } from "../src";
+import { chainM, mergeM, stackM, wrapperM } from "../src/index.js";
 import { createMocks } from "node-mocks-http";
 
 test("wrapperM - runs handler", async (t) => {
