@@ -1,5 +1,5 @@
 import test from "ava";
-import { chain, merge, stack, wrapper } from "../../src/pagesapi";
+import { chain, merge, stack, wrapper } from "../../src/pagesapi/index.js";
 import { createMocks } from "node-mocks-http";
 import { NextApiRequest } from "next";
 
@@ -32,9 +32,9 @@ test("wrapper - runs handler", async (t) => {
 
 test("wrapper - attaches properties to request", async (t) => {
   const wrapped = wrapper(
-    async (next, req: NextApiRequest & { foo: string }) => {
+    async (next, req: NextApiRequest & { foo: string }, res) => {
       req.foo = "bar";
-      return await next();
+      return await next(req, res);
     }
   );
 
@@ -54,14 +54,14 @@ test("wrapper - attaches properties to request", async (t) => {
 
 test("merge - runs in correct order", async (t) => {
   const order: string[] = [];
-  const wrappedA = wrapper(async (next) => {
-    const res = await next();
+  const wrappedA = wrapper(async (next, req, _res) => {
+    const res = await next(req, _res);
     order.push("A handler ran");
     return res;
   });
 
-  const wrappedB = wrapper(async (next) => {
-    const res = await next();
+  const wrappedB = wrapper(async (next, req, _res) => {
+    const res = await next(req, _res);
     order.push("B handler ran");
     return res;
   });
@@ -85,20 +85,20 @@ test("merge - runs in correct order", async (t) => {
 
 test("stack - runs in correct order", async (t) => {
   const order: string[] = [];
-  const wrappedA = wrapper(async (next) => {
-    const res = await next();
+  const wrappedA = wrapper(async (next, _req, _res) => {
+    const res = await next(_req, _res);
     order.push("A handler ran");
     return res;
   });
 
-  const wrappedB = wrapper(async (next) => {
-    const res = await next();
+  const wrappedB = wrapper(async (next, _req, _res) => {
+    const res = await next(_req, _res);
     order.push("B handler ran");
     return res;
   });
 
-  const wrappedC = wrapper(async (next) => {
-    const res = await next();
+  const wrappedC = wrapper(async (next, _req, _res) => {
+    const res = await next(_req, _res);
     order.push("C handler ran");
     return res;
   });
@@ -125,20 +125,20 @@ test("stack - runs in correct order", async (t) => {
 
 test("chain - runs in correct order", async (t) => {
   const order: string[] = [];
-  const wrappedA = wrapper(async (next) => {
-    const res = await next();
+  const wrappedA = wrapper(async (next, _req, _res) => {
+    const res = await next(_req, _res);
     order.push("A handler ran");
     return res;
   });
 
-  const wrappedB = wrapper(async (next) => {
-    const res = await next();
+  const wrappedB = wrapper(async (next, _req, _res) => {
+    const res = await next(_req, _res);
     order.push("B handler ran");
     return res;
   });
 
-  const wrappedC = wrapper(async (next) => {
-    const res = await next();
+  const wrappedC = wrapper(async (next, _req, _res) => {
+    const res = await next(_req, _res);
     order.push("C handler ran");
     return res;
   });

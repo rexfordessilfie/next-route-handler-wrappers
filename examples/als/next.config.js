@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  transpilePackages: ['@nextwrappers/async-local-storage']
+};
 
-module.exports = nextConfig
+export default nextConfig;

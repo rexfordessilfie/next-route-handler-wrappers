@@ -1,4 +1,4 @@
-import { wrapperM, MiddlewareWrapperCallback } from "../../core";
+import { wrapperM, MiddlewareWrapperCallback } from "@nextwrappers/core";
 import { Path, pathToRegexp } from "path-to-regexp";
 
 export type MatchingPathsConfig = {

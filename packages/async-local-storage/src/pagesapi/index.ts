@@ -1,6 +1,7 @@
-import { wrapper } from "@nextwrappers/core";
+import { wrapper } from "@nextwrappers/core/pagesapi";
 import { AsyncLocalStorage } from "node:async_hooks";
-import { runWithAsyncLocalStorage } from "./shared";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { runWithAsyncLocalStorage } from "../shared";
 
 /**
  * Creates an async local storage wrapper for a route handler
@@ -16,17 +17,17 @@ export function asyncLocalStorage<Store>(
   return {
     storage,
     getStore: () => storage.getStore(),
-    wrapper: wrapper((next, req, ext) => {
-      const store = initialize?.(req, ext);
-      return runWithAsyncLocalStorage(storage, store, next, [req, ext]);
+    wrapper: wrapper((next, ...args) => {
+      const store = initialize?.(...args);
+      return runWithAsyncLocalStorage(storage, store, next, args as any);
     }),
   };
 }
 
 export type AsyncLocalStorageWrapperOptions<Store> = {
   storage?: AsyncLocalStorage<Store>;
-  initialize?: <Req = unknown, Ext = unknown>(
+  initialize?: <Req extends NextApiRequest, Res extends NextApiResponse>(
     req: Req,
-    ext?: Ext
+    res?: Res
   ) => Store;
 };

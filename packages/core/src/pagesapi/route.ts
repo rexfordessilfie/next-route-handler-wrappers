@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse, NextApiHandler } from "next";
+import type { NextApiRequest, NextApiResponse, NextApiHandler } from "next";
 
 /**
  * Creates a wrapper-like functionality for Next.js API handlers.
@@ -17,12 +17,12 @@ export function wrapper<
   return (handler: ApiHandler<Req>): typeof handler => {
     // The new handler
     return async (req, res) => {
-      const next = () => handler(req, res);
+      const next = (_req: any, _res: any) => handler(_req ?? req, _res ?? res);
 
       // Run the callback. Cast req to the type of callback's req
       // since we assume deps are already attached to the request
       return await cb(
-        next,
+        next as InferApiWrapperCallbackNext<typeof cb>,
         req as InferApiWrapperCallbackReq<typeof cb>,
         res as Res
       );
@@ -102,8 +102,9 @@ export type InferApiWrapperReq<M extends ApiWrapper<any>> = Parameters<
  */
 export type ApiWrapperCallback<
   Req extends NextApiRequest = NextApiRequest & Record<string, any>,
-  Res extends NextApiResponse = NextApiResponse<any>
-> = (next: Function, req: Req, res: Res) => ReturnType<NextApiHandler>;
+  Res extends NextApiResponse = NextApiResponse<any>,
+  Next = ApiHandler<Req, Res> & (() => ReturnType<NextApiHandler>)
+> = (next: Next, req: Req, res: Res) => ReturnType<NextApiHandler>;
 
 /**
  * Helper type to infer the callback's request type
@@ -113,6 +114,12 @@ export type InferApiWrapperCallbackReq<
   Req extends NextApiRequest = any,
   Res extends NextApiResponse = any
 > = Parameters<C>[1];
+
+export type InferApiWrapperCallbackNext<
+  C extends ApiWrapperCallback<Req, Res>,
+  Req extends NextApiRequest = any,
+  Res extends NextApiResponse = any
+> = Parameters<C>[0];
 
 /**
  * Helper type to infer the wrapper's handler argument request type

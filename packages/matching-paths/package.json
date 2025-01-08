@@ -2,6 +2,7 @@
   "name": "@nextwrappers/matching-paths",
   "version": "1.0.0",
   "main": "dist/index.js",
+  "type": "module",
   "license": "MIT",
   "types": "dist/index.d.ts",
   "author": "Rexford Essilfie <rexfordessilfie09@gmail.com>",
@@ -41,6 +42,7 @@
     "typescript": "^5.1.3"
   },
   "dependencies": {
-    "path-to-regexp": "^6.2.1"
+    "path-to-regexp": "^6.2.1",
+    "@nextwrappers/core": "workspace:*"
   }
 }
